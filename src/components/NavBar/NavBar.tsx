@@ -11,12 +11,12 @@ import settingsImg from './../../assets/images/navbar/settings.png'
 
 
 const NAV_ITEMS = [
-  {id: 1, name: 'База знаний', pathUrl: '/knowledge', img: knowledgeImg},
-  {id: 2, name: 'Заявки', pathUrl: '/bids', img: bidsImg},
-  {id: 3, name: 'Сотрудники', pathUrl: '/employees', img: employeesImg},
-  {id: 4, name: 'Клиенты', pathUrl: '/clients', img: clientsImg},
-  {id: 5, name: 'Активы', pathUrl: '/assets', img: assetsImg},
-  {id: 6, name: 'Настройки', pathUrl: '/settings', img: settingsImg},
+  { id: 1, name: 'База знаний', pathUrl: '/knowledge', img: knowledgeImg },
+  { id: 2, name: 'Заявки', pathUrl: '/bids', img: bidsImg },
+  { id: 3, name: 'Сотрудники', pathUrl: '/employees', img: employeesImg },
+  { id: 4, name: 'Клиенты', pathUrl: '/clients', img: clientsImg },
+  { id: 5, name: 'Активы', pathUrl: '/assets', img: assetsImg },
+  { id: 6, name: 'Настройки', pathUrl: '/settings', img: settingsImg },
 ]
 
 const NavBar: React.FC = () => {
@@ -28,14 +28,14 @@ const NavBar: React.FC = () => {
 
       <nav className={styles.nav}>
         {NAV_ITEMS.map(item => (
-          <NavLink  to={item.pathUrl} 
-                    key={item.id} 
-                    className={styles.nav__item}
-                    activeClassName={styles.active}
+          <NavLink to={item.pathUrl}
+            key={item.id}
+            className={styles.nav__item}
+            activeClassName={styles.active}
           >
-            <img  src={item.img} 
-                  alt={item.name}
-                  className={styles.nav__item__img} />
+            <img src={item.img}
+              alt={item.name}
+              className={styles.nav__item__img} />
             <span className={styles.nav__item__name}>
               {item.name}
             </span>

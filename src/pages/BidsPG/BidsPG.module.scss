@@ -1,0 +1,93 @@
+@import './../../assets/styles/vars.scss';
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.header {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+  &__btn {
+    background-color: $clr-blue-2;
+    border: 1px solid $clr-blue-2;
+    color: #fff;
+    font-size: 1em;
+    padding: 0.5em 1.5em;
+    border-radius: 1em;
+    transition: .4s;
+    &:hover {
+      box-shadow: inset 200px 0 0  #fff;
+      color: $clr-blue-2;
+    }
+  }
+}
+
+.table {
+  width: 100%; 
+  height: 100%;
+  &__header {
+    &__row {
+      border-bottom: 1px solid $clr-grey-light;
+      .table__item {
+        border-right: 1px solid rgba($clr-grey-light, .5);
+        font-weight: 600;
+        color: $clr-grey-dark;
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+  &__list {
+    height: 100%;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+      background: $clr-grey-light;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $clr-grey;
+      border-radius: 4px;
+    }
+    &__row {
+      border-bottom: 1px solid rgba($clr-grey-light, .5);
+    }
+  }
+  &__row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: .75em 0;
+  }
+  &__item {
+    color: $clr-grey;
+    padding: .25em 1em;
+    &.id {
+      width: 116px;
+      text-align: center;
+    }
+    &.name {
+      width: 420px;
+    }
+    &.status {
+      width: 130px;
+      span {
+        background-color: red;
+        border-radius: 1em;
+        color: #fff;
+        padding: 0.4em;
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+}
+

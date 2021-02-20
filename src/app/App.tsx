@@ -1,6 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { NavBar, Search } from '../components';
+import { BidsPG } from '../pages';
 
 
 const App: React.FC = () => {
@@ -9,6 +10,13 @@ const App: React.FC = () => {
       <Redirect to="/bids" />
       <Search />
       <NavBar />
+
+      <main className="main">
+        <Switch>
+          <Route 
+            path="/bids" component={BidsPG} />
+        </Switch>
+      </main>
     </div>
   );
 }
