@@ -1,21 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { apiInstance } from "../../app/api";
 import { thunkType } from "../../app/store";
-import { BidsType, getDataType } from "./bidsTypes";
-import { BidsDataType } from './../commonTypes'
+import { BidsDataType } from "../commonTypes";
+import { BidsCardDataType, BidsCardType } from "./bidsCardTypes";
 
-
-const initialState: BidsType = {
-  data: [],
+const initialState: BidsCardType = {
+  data: null,
   isLoaded: false,
-  error: null
+  error: null,
 }
 
-const bidsSlice = createSlice({
-  name: 'bids',
+const bidsCardSlice = createSlice({
+  name: 'bidsCard',
   initialState,
   reducers: {
-    setData: (state, action: PayloadAction<BidsDataType[]>) => {
+    setData: (state, action: PayloadAction<BidsCardDataType>) => {
       state.data = action.payload
     },
     setLoaded: (state, action: PayloadAction<boolean>) => {
@@ -27,17 +26,16 @@ const bidsSlice = createSlice({
   }
 })
 
+export const { setData, setLoaded, setError } = bidsCardSlice.actions
+export default bidsCardSlice.reducer
 
-export const { setData, setLoaded, setError } = bidsSlice.actions
-export default bidsSlice.reducer
 
-
-export const getBids = (token: string): thunkType => (dispatch) => {
+export const getBidsCard = (token: string, id: string): thunkType => (dispatch) => {
   dispatch(setLoaded(false))
   dispatch(setError(null))
   apiInstance
-    .get<getDataType>(`odata/tasks?tenantguid=${token}`)
-    .then(({ data }) => dispatch(setData(data.value)))
+    .get<BidsCardDataType>(`api/${token}/Tasks/${id}`)
+    .then(({ data }) => dispatch(setData(data)))
     .then(() => dispatch(setLoaded(true)))
     .catch(err => dispatch(setError(err)))
 }

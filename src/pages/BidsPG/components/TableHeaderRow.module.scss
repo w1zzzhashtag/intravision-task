@@ -1,0 +1,27 @@
+@import './../../../assets/styles/vars.scss';
+
+
+.wrapper {
+  border-bottom: 1px solid $clr-grey-light;
+  composes: table__row from './../BidsPG.module.scss';
+}
+
+.item {
+  composes: table__item from './../BidsPG.module.scss';
+  border-right: 1px solid rgba($clr-grey-light, .5);
+  font-weight: 600;
+  color: $clr-grey-dark;
+  &:last-child { border-right: none; }
+  &__id {
+    composes: table__item__id from './../BidsPG.module.scss';
+  }
+  &__name {
+    composes: table__item__name from './../BidsPG.module.scss';
+  }
+  &__status {
+    composes: table__item__status from './../BidsPG.module.scss';
+  }
+  &__executor {
+    composes: table__item__executor from './../BidsPG.module.scss';
+  }
+}

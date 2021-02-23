@@ -29,23 +29,12 @@
   }
 }
 
+
 .table {
   width: 100%; 
   height: 100%;
-  &__header {
-    &__row {
-      border-bottom: 1px solid $clr-grey-light;
-      .table__item {
-        border-right: 1px solid rgba($clr-grey-light, .5);
-        font-weight: 600;
-        color: $clr-grey-dark;
-        &:last-child {
-          border-right: none;
-        }
-      }
-    }
-  }
   &__list {
+    width: 100%; 
     height: 100%;
     overflow-y: scroll;
     &::-webkit-scrollbar {
@@ -57,10 +46,6 @@
       background: $clr-grey;
       border-radius: 4px;
     }
-    &__row {
-      border-bottom: 1px solid rgba($clr-grey-light, .5);
-      cursor: pointer;
-    }
   }
   &__row {
     display: flex;
@@ -71,24 +56,31 @@
   &__item {
     color: $clr-grey;
     padding: .25em 1em;
-    &.id {
-      width: 116px;
+    min-height: 2.1em;
+    &__id {
+      width: 5%;
       text-align: center;
     }
-    &.name {
-      width: 420px;
+    &__name {
+      width: 35%;
     }
-    &.status {
-      width: 130px;
-      span {
+    &__status {
+      width: 8%;
+      &__text {
         border-radius: 1em;
         color: #fff;
         font-size: 0.85em;
-        padding: 0.5em;
+        padding: 0.3em;
         display: block;
         text-align: center;
       }
     }
+    &__executor {
+      width: 52%;
+    }
   }
 }
+
+
+
 
