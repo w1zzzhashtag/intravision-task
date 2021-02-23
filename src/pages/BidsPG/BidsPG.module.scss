@@ -59,6 +59,7 @@
     }
     &__row {
       border-bottom: 1px solid rgba($clr-grey-light, .5);
+      cursor: pointer;
     }
   }
   &__row {
@@ -80,10 +81,10 @@
     &.status {
       width: 130px;
       span {
-        background-color: red;
         border-radius: 1em;
         color: #fff;
-        padding: 0.4em;
+        font-size: 0.85em;
+        padding: 0.5em;
         display: block;
         text-align: center;
       }
