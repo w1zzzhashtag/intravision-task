@@ -6,6 +6,7 @@ export {default as StatusItem} from './StatusItem'
 export {default as TextItem} from './TextItem'
 export {default as Users} from './Users'
 export {default as UsersItem} from './UsersItem'
+export {default as Tags} from './Tags'
 
 
 

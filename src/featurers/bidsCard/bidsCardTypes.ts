@@ -4,7 +4,8 @@ import { BidsDataType } from "../commonTypes";
 export type BidsCardType = {
   data: BidsCardDataType | null;
   isLoaded: boolean;
-  error: Error | null
+  error: Error | null;
+  putBidsCardIsComplete: boolean
 }
 
 export interface BidsCardDataType extends BidsDataType {
@@ -20,4 +21,21 @@ export type BidsCardDataTypeLifetimeItems = {
   newFieldValue: null;
   oldFieldValue: null;
   userName: string;
+}
+
+export type PutBidsCardDataType = {
+  id: number;
+  name: string;
+  description: string;
+  comment: string;
+  price: number;
+  taskTypeId: number;
+  statusId: number;
+  priorityId: number;
+  serviceId: number;
+  resolutionDatePlan: string;
+  tags: number[],
+  initiatorId: number;
+  executorId: number;
+  executorGroupId: number;
 }

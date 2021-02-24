@@ -5,6 +5,7 @@ import { Error, Loading } from '../../../components'
 import { setDataStatus } from '../../../featurers/bidsCard/bidsCardSlice'
 import { getBidsStatus } from '../../../featurers/bidsStatus/bidsStatusSlice'
 import { BidsStatusDataType } from '../../../featurers/bidsStatus/bidsStatusTypes'
+import { TOKEN } from '../../../featurers/commonVariables'
 import styles from './Status.module.scss'
 
 interface IProps {
@@ -17,15 +18,14 @@ interface IProps {
 
 const Status: React.FC<IProps> = ({ status }) => {
   const dispatch = useAppDispatch()
-  const { token } = useAppSelector((state) => state.tenants)
   const { data, error, isLoaded } = useAppSelector((state) => state.bidsStatus)
 
   const [listIsOpen, setListIsOpen] = React.useState(false)
   const handleListOpen = () => setListIsOpen(!listIsOpen)
 
   React.useEffect(() => {
-    listIsOpen && token && dispatch(getBidsStatus(token))
-  }, [dispatch, token, listIsOpen])
+    listIsOpen && dispatch(getBidsStatus(TOKEN))
+  }, [dispatch, TOKEN, listIsOpen])
 
   const selectStatus = (item: BidsStatusDataType) => {
     dispatch(setDataStatus(item))

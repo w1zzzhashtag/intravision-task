@@ -1,5 +1,6 @@
 import React from 'react'
 import { MONTHS } from '../../../featurers/commonVariables'
+import { parseDate } from '../../../featurers/users/commonFeaturers'
 import { BidsCardDataTypeLifetimeItems } from './../../../featurers/bidsCard/bidsCardTypes'
 import styles from './Comment.module.scss'
 
@@ -8,17 +9,6 @@ interface IProps {
 }
 
 const Comment: React.FC<IProps> = ({ data }) => {
-  const parseDate = (d: string) => {
-    const date = new Date(Date.parse(d))
-
-    let dd = date.getDate()
-    let mm = date.getMonth()
-    let h = date.getHours()
-    let m = date.getMinutes()
-
-    return `прокомментировал ${dd} ${MONTHS[mm]}, ${h}:${m}`
-  }
-
   if (!data.comment) return null
 
   return (
@@ -29,7 +19,7 @@ const Comment: React.FC<IProps> = ({ data }) => {
           {data.userName}
         </p>
         <p className={styles.date}>
-          {parseDate(data.createdAt)}
+          прокомментировал {parseDate(data.createdAt, 'dd month, time')}
         </p>
         <p className={styles.comment}>
           {data.comment}

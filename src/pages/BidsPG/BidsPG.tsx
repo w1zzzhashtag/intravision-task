@@ -10,22 +10,24 @@ import { TableHeaderRow, TableListRow } from './components'
 import { BidCardPG } from '..'
 
 import styles from './BidsPG.module.scss'
+import { TOKEN } from '../../featurers/commonVariables'
 
 
 
 const BidsPG: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { token } = useAppSelector((state) => state.tenants)
   const { data, isLoaded, error } = useAppSelector((state) => state.bids)
 
   React.useEffect(() => {
-    token && dispatch(getBids(token))
-  }, [dispatch, token])
+    dispatch(getBids(TOKEN))
+  }, [dispatch, TOKEN])
 
   return (
     <section className={styles.wrapper}>
       <div className={styles.header}>
-        <Button>Создать заявку</Button>
+        <Button handleClick={() => {}}>
+          Создать заявку
+        </Button>
       </div>
 
       <div className={styles.table}>

@@ -4,10 +4,12 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { Button, Error, Loading } from '../../components'
-import { Comment, Status, TextItem, Users } from './components'
+import { Comment, Status, Tags, TextItem, Users } from './components'
 
-import { getBidsCard } from '../../featurers/bidsCard/bidsCardSlice'
+import { getBidsCard, putBidsCard } from '../../featurers/bidsCard/bidsCardSlice'
 import styles from './BidCardPG.module.scss'
+import { TOKEN } from '../../featurers/commonVariables'
+import { parseDate } from '../../featurers/users/commonFeaturers'
 
 interface IParams {
   id: string | undefined
@@ -17,13 +19,14 @@ const BidCardPG: React.FC = () => {
   const dispatch = useAppDispatch()
   const history = useHistory()
   const { id }: IParams = useParams()
-  const { token } = useAppSelector((state) => state.tenants)
-  const { data, isLoaded, error } = useAppSelector((state) => state.bidsCard)
+  const { data, isLoaded, error, putBidsCardIsComplete } = useAppSelector((state) => state.bidsCard)
+
+  const redirectToBidsPG = () => history.push('/bids')
 
 
   React.useEffect(() => {
-    token && id && dispatch(getBidsCard(token, id))
-  }, [token, id, dispatch])
+    id && dispatch(getBidsCard(TOKEN, id))
+  }, [id, dispatch, TOKEN])
 
 
   const [commentValue, setCommentValue] = React.useState('')
@@ -35,7 +38,28 @@ const BidCardPG: React.FC = () => {
     setCommentValue(value)
   }
 
-  const redirectToBidsPG = () => history.push('/bids')
+
+  const sendBidCardChanges = () => {
+    data && dispatch(putBidsCard(TOKEN, {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      comment: commentValue,
+      price: data.price,
+      taskTypeId: data.taskTypeId,
+      statusId: data.statusId,
+      priorityId: data.priorityId,
+      serviceId: data.serviceId,
+      resolutionDatePlan: data.resolutionDatePlan,
+      tags: data.tags.map(item => item.id),
+      initiatorId: data.initiatorId,
+      executorId: data.executorId,
+      executorGroupId: data.executorGroupId
+    }))
+  }
+  React.useEffect(() => {
+    putBidsCardIsComplete && id && dispatch(getBidsCard(TOKEN, id))
+  }, [putBidsCardIsComplete, id, TOKEN, dispatch])
 
   return (
     <div className={styles.wrapper}>
@@ -44,7 +68,6 @@ const BidCardPG: React.FC = () => {
         : <>
           {isLoaded
             ? <>
-
               <div className={styles.header}>
                 <span className={styles.header__id}>№ {data?.id}</span>
                 <span className={styles.header__name}>{data?.name}</span>
@@ -64,7 +87,9 @@ const BidCardPG: React.FC = () => {
                       className={styles.textItem__field} />
                   </TextItem>
 
-                  <Button>Сохранить</Button>
+                  <Button handleClick={sendBidCardChanges}>
+                    Сохранить
+                  </Button>
 
                   <div className={styles.comments}>
                     {data?.lifetimeItems.length !== 0
@@ -93,22 +118,23 @@ const BidCardPG: React.FC = () => {
                     {data && <Users user={{
                       id: data.executorId,
                       name: data.executorName,
-                    }} />}                    
+                    }} />}
                   </TextItem>
 
                   <TextItem title="Приоритет" >
                     <p className={styles.textItem__value}>{data?.priorityName}</p>
                   </TextItem>
 
-                  <TextItem title="Срок" >
-                    <p className={styles.textItem__value}>{data?.resolutionDatePlan}</p>
-                    {/* <input type="date" name="" id="" value={'2018-12-12'} /> */}
-                  </TextItem>
+                  {data && (
+                    <TextItem title="Срок" >
+                      <p className={styles.textItem__date}>
+                        {parseDate(data.resolutionDatePlan, 'dd.mm.yy')}
+                      </p>
+                    </TextItem>
+                  )}
 
                   <TextItem title="Теги" >
-                    {data?.tags.map(item => (
-                      <span key={item.id}>{item.name}</span>
-                    ))}
+                    {data && <Tags tags={data.tags} />}
                   </TextItem>
                 </div>
               </div>

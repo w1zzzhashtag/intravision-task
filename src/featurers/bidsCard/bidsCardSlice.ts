@@ -4,12 +4,13 @@ import { thunkType } from "../../app/store";
 import { BidsStatusDataType } from "../bidsStatus/bidsStatusTypes";
 import { BidsDataType } from "../commonTypes";
 import { UsersDataType } from "../users/usersTypes";
-import { BidsCardDataType, BidsCardType } from "./bidsCardTypes";
+import { BidsCardDataType, BidsCardType, PutBidsCardDataType } from "./bidsCardTypes";
 
 const initialState: BidsCardType = {
   data: null,
   isLoaded: false,
   error: null,
+  putBidsCardIsComplete: false
 }
 
 const bidsCardSlice = createSlice({
@@ -38,12 +39,16 @@ const bidsCardSlice = createSlice({
         state.data.executorName = action.payload.name
       }
     },
+    setPutBidsCardIsComplete: (state, action:PayloadAction<boolean>) => {
+      state.putBidsCardIsComplete = action.payload
+    }
   }
 })
 
 export const { 
   setData, setLoaded, setError, 
-  setDataStatus, setDataExecutor
+  setDataStatus, setDataExecutor,
+  setPutBidsCardIsComplete
 } = bidsCardSlice.actions
 export default bidsCardSlice.reducer
 
@@ -56,4 +61,12 @@ export const getBidsCard = (token: string, id: string): thunkType => (dispatch) 
     .then(({ data }) => dispatch(setData(data)))
     .then(() => dispatch(setLoaded(true)))
     .catch(err => dispatch(setError(err)))
+}
+
+export const putBidsCard = (token: string, data: PutBidsCardDataType):thunkType => (dispatch) => {
+
+  dispatch(setPutBidsCardIsComplete(false))
+  apiInstance
+    .put<PutBidsCardDataType>(`api/${token}/Tasks`, data)
+    .then(({data}) => dispatch(setPutBidsCardIsComplete(true)))
 }

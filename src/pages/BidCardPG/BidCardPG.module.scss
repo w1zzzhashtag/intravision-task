@@ -71,7 +71,7 @@
 }
 
 .textItem {
-  &__value {
+  &__value, &__date {
     font-size: 0.95em;
     color: rgba(#000, .9)
   }
@@ -87,6 +87,18 @@
     transition: .2s;
     &:focus {
       box-shadow: .1em .1em .2em $clr-blue-1;
+    }
+  }
+  &__date {
+    position: relative;
+    padding-left: 1.5em;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 1.2em;
+      height: 1em;
+      background: url('./../../assets/images/calendar.png') center / cover no-repeat;
     }
   }
 }
