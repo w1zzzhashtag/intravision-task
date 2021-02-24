@@ -1,10 +1,11 @@
 import React from 'react'
+import cn from 'classnames'
 import { Route } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { getBids } from '../../featurers/bids/bidsSlice'
 
-import { Error, Loading } from '../../components'
+import { Button, Error, Loading } from '../../components'
 import { TableHeaderRow, TableListRow } from './components'
 import { BidCardPG } from '..'
 
@@ -24,13 +25,13 @@ const BidsPG: React.FC = () => {
   return (
     <section className={styles.wrapper}>
       <div className={styles.header}>
-        <button className={styles.header__btn}>Создать заявку</button>
+        <Button>Создать заявку</Button>
       </div>
 
       <div className={styles.table}>
         <TableHeaderRow />
 
-        <div className={styles.table__list} >
+        <div className={cn(styles.table__list, 'withScroll')} >
           {error
             ? <Error error={error} />
             : isLoaded

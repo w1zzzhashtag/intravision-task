@@ -1,7 +1,11 @@
 import React from 'react'
+import cn from 'classnames'
 import { useParams, useHistory } from 'react-router-dom'
+
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { Error, Loading } from '../../components'
+import { Button, Error, Loading } from '../../components'
+import { Comment } from './components'
+
 import { getBidsCard } from '../../featurers/bidsCard/bidsCardSlice'
 import styles from './BidCardPG.module.scss'
 
@@ -20,10 +24,14 @@ const BidCardPG: React.FC = () => {
     token && id && dispatch(getBidsCard(token, id))
   }, [token, id, dispatch])
 
+  const [commentValue, setCommentValue] = React.useState('')
+
   const redirectToBidsPG = () => history.push('/bids')
 
-  console.log(data);
-  
+  const handleChangeCommentValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target
+    setCommentValue(value)
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -40,7 +48,7 @@ const BidCardPG: React.FC = () => {
               </div>
 
               <div className={styles.inner}>
-                <div className={styles.content}>
+                <div className={cn(styles.content, 'withScroll')}>
                   <div className={styles.textItem}>
                     <p className={styles.textItem__title}>Описание</p>
                     <p className={styles.textItem__value}>{data?.description}</p>
@@ -48,28 +56,23 @@ const BidCardPG: React.FC = () => {
 
                   <div className={styles.textItem}>
                     <p className={styles.textItem__title}>Коментарий</p>
-                    <textarea name="" />
+                    <textarea
+                      value={commentValue}
+                      onChange={handleChangeCommentValue}
+                      className={styles.textItem__field} />
                   </div>
 
-                  <button>Сохранить</button>
+                  <Button>Сохранить</Button>
 
-
-
-                  <div>
-                    {data?.lifetimeItems.map(item => (
-                      <div key={item.id}>
-                        <div></div>
-                        <div>
-                          <p>{item.userName}</p>
-                          <p>{item.createdAt} прокомментировал</p>
-                          <p>{item.comment}</p>
-                        </div>
-                      </div>
+                  <div className={styles.comments}>
+                    {data?.lifetimeItems.length !== 0 
+                      && data?.lifetimeItems.map(item => (
+                        <Comment key={item.id} data={item} />
                     ))}
                   </div>
                 </div>
 
-                <div className={styles.aside}>
+                <div className={cn(styles.aside, 'withScroll')}>
                   <div className={styles.textItem}>
                     <p className={styles.textItem__title}>Заявитель</p>
                     <p className={styles.textItem__value}>Александр Вознесенский</p>

@@ -14,19 +14,6 @@
   display: flex;
   justify-content: center;
   margin-bottom: 1em;
-  &__btn {
-    background-color: $clr-blue-2;
-    border: 1px solid $clr-blue-2;
-    color: #fff;
-    font-size: 1em;
-    padding: 0.5em 1.5em;
-    border-radius: 1em;
-    transition: .4s;
-    &:hover {
-      box-shadow: inset 200px 0 0  #fff;
-      color: $clr-blue-2;
-    }
-  }
 }
 
 
@@ -37,15 +24,6 @@
     width: 100%; 
     height: 100%;
     overflow-y: scroll;
-    &::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-      background: $clr-grey-light;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: $clr-grey;
-      border-radius: 4px;
-    }
   }
   &__row {
     display: flex;

@@ -1,0 +1,16 @@
+@import './../../assets/styles/vars.scss';
+
+
+.wrapper {
+  background-color: $clr-blue-2;
+  border: 1px solid $clr-blue-2;
+  color: #fff;
+  font-size: 1em;
+  padding: 0.5em 1.5em;
+  border-radius: 1em;
+  transition: .4s;
+  &:hover {
+    background-color: #fff;
+    color: $clr-blue-2;
+  }
+}

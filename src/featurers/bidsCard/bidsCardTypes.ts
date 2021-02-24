@@ -13,7 +13,7 @@ export interface BidsCardDataType extends BidsDataType {
 
 export type BidsCardDataTypeLifetimeItems = {
   comment: string;
-  createdAt: Date;
+  createdAt: string;
   fieldName: null;
   id: number;
   lifetimeType: number;
