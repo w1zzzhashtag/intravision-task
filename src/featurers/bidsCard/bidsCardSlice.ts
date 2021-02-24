@@ -3,6 +3,7 @@ import { apiInstance } from "../../app/api";
 import { thunkType } from "../../app/store";
 import { BidsStatusDataType } from "../bidsStatus/bidsStatusTypes";
 import { BidsDataType } from "../commonTypes";
+import { UsersDataType } from "../users/usersTypes";
 import { BidsCardDataType, BidsCardType } from "./bidsCardTypes";
 
 const initialState: BidsCardType = {
@@ -31,11 +32,18 @@ const bidsCardSlice = createSlice({
         state.data.statusRgb = action.payload.rgb
       }
     },
+    setDataExecutor: (state, action:PayloadAction<UsersDataType>) => {
+      if(state.data) {
+        state.data.executorId = action.payload.id
+        state.data.executorName = action.payload.name
+      }
+    },
   }
 })
 
 export const { 
-  setData, setLoaded, setError, setDataStatus 
+  setData, setLoaded, setError, 
+  setDataStatus, setDataExecutor
 } = bidsCardSlice.actions
 export default bidsCardSlice.reducer
 

@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { Button, Error, Loading } from '../../components'
-import { Comment, Status } from './components'
+import { Comment, Status, TextItem, Users } from './components'
 
 import { getBidsCard } from '../../featurers/bidsCard/bidsCardSlice'
 import styles from './BidCardPG.module.scss'
@@ -35,9 +35,7 @@ const BidCardPG: React.FC = () => {
     setCommentValue(value)
   }
 
-
   const redirectToBidsPG = () => history.push('/bids')
-
 
   return (
     <div className={styles.wrapper}>
@@ -55,18 +53,16 @@ const BidCardPG: React.FC = () => {
 
               <div className={styles.inner}>
                 <div className={cn(styles.content, 'withScroll')}>
-                  <div className={styles.textItem}>
-                    <p className={styles.textItem__title}>Описание</p>
+                  <TextItem title="Описание" >
                     <p className={styles.textItem__value}>{data?.description}</p>
-                  </div>
+                  </TextItem>
 
-                  <div className={styles.textItem}>
-                    <p className={styles.textItem__title}>Коментарий</p>
+                  <TextItem title="Коментарий" >
                     <textarea
                       value={commentValue}
                       onChange={handleChangeCommentValue}
                       className={styles.textItem__field} />
-                  </div>
+                  </TextItem>
 
                   <Button>Сохранить</Button>
 
@@ -85,41 +81,36 @@ const BidCardPG: React.FC = () => {
                     rgb: data.statusRgb,
                   }} />}
 
-
-                  <div className={styles.textItem}>
-                    <p className={styles.textItem__title}>Заявитель</p>
+                  <TextItem title="Заявитель" >
                     <p className={styles.textItem__value}>Александр Вознесенский</p>
-                  </div>
+                  </TextItem>
 
-                  <div className={styles.textItem}>
-                    <p className={styles.textItem__title}>Создана</p>
+                  <TextItem title="Создана" >
                     <p className={styles.textItem__value}>{data?.initiatorName}</p>
-                  </div>
+                  </TextItem>
 
-                  <div className={styles.textItem}>
-                    <p className={styles.textItem__title}>Исполнитель</p>
-                    <p className={styles.textItem__value}>{data?.executorName}</p>
-                  </div>
+                  <TextItem title="Исполнитель" >
+                    {data && <Users user={{
+                      id: data.executorId,
+                      name: data.executorName,
+                    }} />}                    
+                  </TextItem>
 
-                  <div className={styles.textItem}>
-                    <p className={styles.textItem__title}>Приоритет</p>
+                  <TextItem title="Приоритет" >
                     <p className={styles.textItem__value}>{data?.priorityName}</p>
-                  </div>
+                  </TextItem>
 
-                  <div className={styles.textItem}>
-                    <p className={styles.textItem__title}>Срок</p>
-                    <input type="date" name="" id="" value={'2018-12-12'} />
-                    {/* <p className={styles.textItem__value}>{data?.resolutionDatePlan}</p> */}
-                  </div>
+                  <TextItem title="Срок" >
+                    <p className={styles.textItem__value}>{data?.resolutionDatePlan}</p>
+                    {/* <input type="date" name="" id="" value={'2018-12-12'} /> */}
+                  </TextItem>
 
-                  <div className={styles.textItem}>
-                    <p className={styles.textItem__title}>Теги</p>
+                  <TextItem title="Теги" >
                     {data?.tags.map(item => (
                       <span key={item.id}>{item.name}</span>
                     ))}
-                  </div>
+                  </TextItem>
                 </div>
-
               </div>
             </>
             : <Loading />}

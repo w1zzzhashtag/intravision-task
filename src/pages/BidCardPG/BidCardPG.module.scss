@@ -71,16 +71,6 @@
 }
 
 .textItem {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 1.5em;
-  &__title {
-    font-size: 0.9em;
-    margin-bottom: .3em;
-    color: rgba($clr-grey, .7);
-  }
   &__value {
     font-size: 0.95em;
     color: rgba(#000, .9)

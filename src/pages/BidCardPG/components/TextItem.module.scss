@@ -1,0 +1,15 @@
+@import './../../../assets/styles/vars.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 1.5em;
+}
+
+.title {
+  font-size: 0.9em;
+  margin-bottom: .3em;
+  color: rgba($clr-grey, .7);
+}

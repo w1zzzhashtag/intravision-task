@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatusItem } from '.'
+import { ListModal, StatusItem } from '.'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { Error, Loading } from '../../../components'
 import { setDataStatus } from '../../../featurers/bidsCard/bidsCardSlice'
@@ -29,7 +29,7 @@ const Status: React.FC<IProps> = ({ status }) => {
 
   const selectStatus = (item: BidsStatusDataType) => {
     dispatch(setDataStatus(item))
-    setListIsOpen(!listIsOpen)
+    handleListOpen()
   }
 
   return (
@@ -43,7 +43,7 @@ const Status: React.FC<IProps> = ({ status }) => {
         handleClick={handleListOpen} />
 
 
-      {listIsOpen && <div className={styles.list}>
+      {listIsOpen && <ListModal>
         {error
           ? <Error error={error} />
           : isLoaded
@@ -60,7 +60,7 @@ const Status: React.FC<IProps> = ({ status }) => {
             ))
             : <Loading />
         }
-      </div>}
+      </ListModal>}
     </div>
   )
 }
