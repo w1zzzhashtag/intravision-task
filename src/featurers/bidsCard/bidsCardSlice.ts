@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { apiInstance } from "../../app/api";
 import { thunkType } from "../../app/store";
+import { BidsStatusDataType } from "../bidsStatus/bidsStatusTypes";
 import { BidsDataType } from "../commonTypes";
 import { BidsCardDataType, BidsCardType } from "./bidsCardTypes";
 
@@ -22,11 +23,20 @@ const bidsCardSlice = createSlice({
     },
     setError: (state, action: PayloadAction<Error | null>) => {
       state.error = action.payload
-    }
+    },
+    setDataStatus: (state, action:PayloadAction<BidsStatusDataType>) => {
+      if(state.data) {
+        state.data.statusId = action.payload.id
+        state.data.statusName = action.payload.name
+        state.data.statusRgb = action.payload.rgb
+      }
+    },
   }
 })
 
-export const { setData, setLoaded, setError } = bidsCardSlice.actions
+export const { 
+  setData, setLoaded, setError, setDataStatus 
+} = bidsCardSlice.actions
 export default bidsCardSlice.reducer
 
 

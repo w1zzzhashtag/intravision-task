@@ -1,0 +1,32 @@
+@import './../../../assets/styles/vars.scss';
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: .2s;
+  &.nested {
+    padding: .4em .6em;
+    &:hover {
+      background-color: $clr-grey-light;
+    }
+  }
+}
+
+.color {
+  font-size: 0.9em;
+  width: 1em;
+  height: 1em;
+  border-radius: 1em;
+  margin-right: .5em;
+}
+
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

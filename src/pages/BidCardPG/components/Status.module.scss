@@ -1,0 +1,21 @@
+@import './../../../assets/styles/vars.scss';
+
+.wrapper {
+  width: 100%;
+  font-size: 1em;
+  margin-bottom: 1.5em;
+  position: relative;
+}
+
+.list {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: .1em .1em .3em rgba(#000, .1);
+  border-radius: 0.5em;
+  color: $clr-grey;
+  overflow: hidden;
+  font-size: 0.9em;
+}

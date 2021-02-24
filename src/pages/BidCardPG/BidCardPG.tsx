@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { Button, Error, Loading } from '../../components'
-import { Comment } from './components'
+import { Comment, Status } from './components'
 
 import { getBidsCard } from '../../featurers/bidsCard/bidsCardSlice'
 import styles from './BidCardPG.module.scss'
@@ -20,18 +20,24 @@ const BidCardPG: React.FC = () => {
   const { token } = useAppSelector((state) => state.tenants)
   const { data, isLoaded, error } = useAppSelector((state) => state.bidsCard)
 
+
   React.useEffect(() => {
     token && id && dispatch(getBidsCard(token, id))
   }, [token, id, dispatch])
 
+
   const [commentValue, setCommentValue] = React.useState('')
 
-  const redirectToBidsPG = () => history.push('/bids')
+  React.useEffect(() => setCommentValue(''), [id])
 
   const handleChangeCommentValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target
     setCommentValue(value)
   }
+
+
+  const redirectToBidsPG = () => history.push('/bids')
+
 
   return (
     <div className={styles.wrapper}>
@@ -65,14 +71,21 @@ const BidCardPG: React.FC = () => {
                   <Button>Сохранить</Button>
 
                   <div className={styles.comments}>
-                    {data?.lifetimeItems.length !== 0 
+                    {data?.lifetimeItems.length !== 0
                       && data?.lifetimeItems.map(item => (
                         <Comment key={item.id} data={item} />
-                    ))}
+                      ))}
                   </div>
                 </div>
 
                 <div className={cn(styles.aside, 'withScroll')}>
+                  {data && <Status status={{
+                    id: data.statusId,
+                    name: data.statusName,
+                    rgb: data.statusRgb,
+                  }} />}
+
+
                   <div className={styles.textItem}>
                     <p className={styles.textItem__title}>Заявитель</p>
                     <p className={styles.textItem__value}>Александр Вознесенский</p>
