@@ -1,0 +1,6 @@
+@import './../../assets/styles/vars.scss';
+
+.content {
+  composes: content from './../../components/CardTemplate/CardTemplate.module.scss';
+}
+

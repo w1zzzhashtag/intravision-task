@@ -1,6 +1,6 @@
 
 
-export const TOKEN = "e0fd7abe-d5ae-4bd7-b32a-1ff14d8cbeb7"
+export const TOKEN = "93d757c1-decc-47b6-97be-23b32df2f70d"
 
 export const MONTHS = [
   'января', 'февраля', 'марта',

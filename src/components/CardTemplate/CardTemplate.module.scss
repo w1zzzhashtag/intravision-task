@@ -1,0 +1,68 @@
+@import './../../assets/styles/vars.scss';
+
+
+.wrapper {
+  position: absolute;
+  right: 0;
+  top: $search-height;
+  width: calc(60% - (#{$width-navbar} / 2));
+  height: calc(100% - #{$search-height});
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: $clr-blue-light;
+  box-shadow: -.2em 0 1em $clr-grey-light;
+  animation: a .5s;
+}
+
+@keyframes a {
+  0% {
+    transform: translateX(100vh);
+  } 
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.header {
+  width: 100%;
+  background-color: $clr-blue-dark-1;
+  color: #fff;
+  padding: 1em 1.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__name {
+    flex-grow: 1;
+    font-size: 0.95em;
+    margin: 0 1.5em;
+  }
+  &__button {
+    color: inherit;
+    font-size: 2em;
+    line-height: 1;
+  }
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.content, .aside {
+  height: calc(100% - #{$search-height});
+  padding: 1.5em 2em;
+  border-left: 1px solid rgba($clr-grey, .1);
+  overflow-y: scroll;
+  composes: withScroll from './../../app/global.module.scss';
+}
+.content {
+  width: 75%; 
+}
+.aside {
+  width: 25%;
+}

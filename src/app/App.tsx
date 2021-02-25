@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { NavBar, Search } from '../components';
-import { BidsPG } from '../pages';
+import { AssetsPG, BidsPG, ClientsPG, EmployeesPG, KnowledgePG, SettingsPG } from '../pages';
 
 
 const App: React.FC = () => {
@@ -15,7 +15,17 @@ const App: React.FC = () => {
       <main className="main">
         <Switch>
           <Route
+            path="/knowledge" component={KnowledgePG} />
+          <Route
             path="/bids" component={BidsPG} />
+          <Route
+            path="/employees" component={EmployeesPG} />
+          <Route
+            path="/clients" component={ClientsPG} />
+          <Route
+            path="/assets" component={AssetsPG} />
+          <Route
+            path="/settings" component={SettingsPG} />
         </Switch>
       </main>
     </div>

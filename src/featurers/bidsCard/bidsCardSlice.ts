@@ -2,15 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { apiInstance } from "../../app/api";
 import { thunkType } from "../../app/store";
 import { BidsStatusDataType } from "../bidsStatus/bidsStatusTypes";
-import { BidsDataType } from "../commonTypes";
 import { UsersDataType } from "../users/usersTypes";
-import { BidsCardDataType, BidsCardType, PutBidsCardDataType } from "./bidsCardTypes";
+import { BidsCardDataType, BidsCardType, SendBidsCardDataType } from "./bidsCardTypes";
 
 const initialState: BidsCardType = {
   data: null,
   isLoaded: false,
   error: null,
-  putBidsCardIsComplete: false
+  putBidsCardIsComplete: false,
+  postBidsCardIsComplete: null,
 }
 
 const bidsCardSlice = createSlice({
@@ -41,6 +41,9 @@ const bidsCardSlice = createSlice({
     },
     setPutBidsCardIsComplete: (state, action:PayloadAction<boolean>) => {
       state.putBidsCardIsComplete = action.payload
+    },
+    setPostBidsCardIsComplete: (state, action:PayloadAction<number | null>) => {
+      state.postBidsCardIsComplete = action.payload
     }
   }
 })
@@ -48,7 +51,8 @@ const bidsCardSlice = createSlice({
 export const { 
   setData, setLoaded, setError, 
   setDataStatus, setDataExecutor,
-  setPutBidsCardIsComplete
+  setPutBidsCardIsComplete,
+  setPostBidsCardIsComplete
 } = bidsCardSlice.actions
 export default bidsCardSlice.reducer
 
@@ -63,10 +67,17 @@ export const getBidsCard = (token: string, id: string): thunkType => (dispatch) 
     .catch(err => dispatch(setError(err)))
 }
 
-export const putBidsCard = (token: string, data: PutBidsCardDataType):thunkType => (dispatch) => {
-
+export const putBidsCard = (token: string, data: SendBidsCardDataType):thunkType => (dispatch) => {
   dispatch(setPutBidsCardIsComplete(false))
   apiInstance
-    .put<PutBidsCardDataType>(`api/${token}/Tasks`, data)
+    .put(`api/${token}/Tasks`, data)
     .then(({data}) => dispatch(setPutBidsCardIsComplete(true)))
+    .catch(err => alert(err.message))
+}
+
+export const postBidsCard = (token: string, data: SendBidsCardDataType):thunkType => (dispatch) => {
+  apiInstance
+    .post<number>(`api/${token}/Tasks`, data)
+    .then(({data}) => dispatch(setPostBidsCardIsComplete(data)))
+    .catch(err => alert(err.message))
 }

@@ -49,16 +49,3 @@ textarea {
   margin-left: $width-navbar;
   padding: 1em 0;
 }
-
-
-.withScroll {
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: $clr-grey;
-    border-radius: 4px;
-  }
-}

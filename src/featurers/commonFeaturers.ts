@@ -1,4 +1,5 @@
-import { MONTHS } from "../commonVariables"
+import { MONTHS } from "./commonVariables"
+import {useHistory} from 'react-router-dom'
 
 type IParseDateType = 'dd.mm.yy' | 'dd month, time' 
 
@@ -20,3 +21,4 @@ export const parseDate = (d: string, type: IParseDateType) => {
       return `${dd}.${mm}.${yy} г.`
   } 
 }
+

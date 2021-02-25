@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './Error.module.scss'
 
 interface IProps {
   error: Error
@@ -6,7 +7,7 @@ interface IProps {
 
 const Error: React.FC<IProps> = ({ error }) => {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <p>{error.name}</p>
       <p>{error.message}</p>
       <p>{error.stack}</p>

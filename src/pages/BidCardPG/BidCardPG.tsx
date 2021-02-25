@@ -1,21 +1,21 @@
 import React from 'react'
-import cn from 'classnames'
 import { useParams, useHistory } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { Button, Error, Loading } from '../../components'
-import { Comment, Status, Tags, TextItem, Users } from './components'
+import { Button, CardTemplate, CardTextItem, Error, Loading, TextAreaField } from '../../components'
+import { Comment, Status, Tags, Users } from './components'
 
 import { getBidsCard, putBidsCard } from '../../featurers/bidsCard/bidsCardSlice'
 import styles from './BidCardPG.module.scss'
 import { TOKEN } from '../../featurers/commonVariables'
-import { parseDate } from '../../featurers/users/commonFeaturers'
+import { parseDate, } from '../../featurers/commonFeaturers'
 
 interface IParams {
   id: string | undefined
 }
 
-const BidCardPG: React.FC = () => {
+
+const BidCardPG: React.FC = ({ }) => {
   const dispatch = useAppDispatch()
   const history = useHistory()
   const { id }: IParams = useParams()
@@ -23,9 +23,8 @@ const BidCardPG: React.FC = () => {
 
   const redirectToBidsPG = () => history.push('/bids')
 
-
   React.useEffect(() => {
-    id && dispatch(getBidsCard(TOKEN, id))
+    id && id !== 'create' && dispatch(getBidsCard(TOKEN, id))
   }, [id, dispatch, TOKEN])
 
 
@@ -62,87 +61,80 @@ const BidCardPG: React.FC = () => {
   }, [putBidsCardIsComplete, id, TOKEN, dispatch])
 
   return (
-    <div className={styles.wrapper}>
+    <>
       {error
         ? <Error error={error} />
-        : <>
-          {isLoaded
-            ? <>
-              <div className={styles.header}>
-                <span className={styles.header__id}>№ {data?.id}</span>
-                <span className={styles.header__name}>{data?.name}</span>
-                <button className={styles.header__button} onClick={redirectToBidsPG}>&times;</button>
+        : isLoaded
+          ? <CardTemplate
+            headerTitle={`№ ${data?.id} ${data?.name}`}
+            handleOpenCard={redirectToBidsPG}
+          >
+            <div className={styles.content}>
+              <CardTextItem title="Описание" >
+                <p className={styles.textItem__value}>{data?.description}</p>
+              </CardTextItem>
+
+              <CardTextItem title="Коментарий" >
+                <TextAreaField
+                  name="comments"
+                  value={commentValue}
+                  handleChange={handleChangeCommentValue} />
+              </CardTextItem>
+
+              <Button handleClick={sendBidCardChanges}>
+                Сохранить
+              </Button>
+
+              <div className={styles.comments}>
+                {data?.lifetimeItems.length !== 0
+                  && data?.lifetimeItems.map(item => (
+                    <Comment key={item.id} data={item} />
+                  ))}
               </div>
+            </div>
 
-              <div className={styles.inner}>
-                <div className={cn(styles.content, 'withScroll')}>
-                  <TextItem title="Описание" >
-                    <p className={styles.textItem__value}>{data?.description}</p>
-                  </TextItem>
+            <aside className={styles.aside}>
+              {data && <Status status={{
+                id: data.statusId,
+                name: data.statusName,
+                rgb: data.statusRgb,
+              }} />}
 
-                  <TextItem title="Коментарий" >
-                    <textarea
-                      value={commentValue}
-                      onChange={handleChangeCommentValue}
-                      className={styles.textItem__field} />
-                  </TextItem>
+              <CardTextItem title="Заявитель" >
+                <p className={styles.textItem__value}>Александр Вознесенский</p>
+              </CardTextItem>
 
-                  <Button handleClick={sendBidCardChanges}>
-                    Сохранить
-                  </Button>
+              <CardTextItem title="Создана" >
+                <p className={styles.textItem__value}>{data?.initiatorName}</p>
+              </CardTextItem>
 
-                  <div className={styles.comments}>
-                    {data?.lifetimeItems.length !== 0
-                      && data?.lifetimeItems.map(item => (
-                        <Comment key={item.id} data={item} />
-                      ))}
-                  </div>
-                </div>
+              <CardTextItem title="Исполнитель" >
+                {data && <Users user={{
+                  id: data.executorId,
+                  name: data.executorName,
+                }} />}
+              </CardTextItem>
 
-                <div className={cn(styles.aside, 'withScroll')}>
-                  {data && <Status status={{
-                    id: data.statusId,
-                    name: data.statusName,
-                    rgb: data.statusRgb,
-                  }} />}
+              <CardTextItem title="Приоритет" >
+                <p className={styles.textItem__value}>{data?.priorityName}</p>
+              </CardTextItem>
 
-                  <TextItem title="Заявитель" >
-                    <p className={styles.textItem__value}>Александр Вознесенский</p>
-                  </TextItem>
+              {data && (
+                <CardTextItem title="Срок" >
+                  <p className={styles.textItem__date}>
+                    {parseDate(data.resolutionDatePlan, 'dd.mm.yy')}
+                  </p>
+                </CardTextItem>
+              )}
 
-                  <TextItem title="Создана" >
-                    <p className={styles.textItem__value}>{data?.initiatorName}</p>
-                  </TextItem>
-
-                  <TextItem title="Исполнитель" >
-                    {data && <Users user={{
-                      id: data.executorId,
-                      name: data.executorName,
-                    }} />}
-                  </TextItem>
-
-                  <TextItem title="Приоритет" >
-                    <p className={styles.textItem__value}>{data?.priorityName}</p>
-                  </TextItem>
-
-                  {data && (
-                    <TextItem title="Срок" >
-                      <p className={styles.textItem__date}>
-                        {parseDate(data.resolutionDatePlan, 'dd.mm.yy')}
-                      </p>
-                    </TextItem>
-                  )}
-
-                  <TextItem title="Теги" >
-                    {data && <Tags tags={data.tags} />}
-                  </TextItem>
-                </div>
-              </div>
-            </>
-            : <Loading />}
-        </>
+              <CardTextItem title="Теги" >
+                {data && <Tags tags={data.tags} />}
+              </CardTextItem>
+            </aside>
+          </CardTemplate>
+          : <Loading />
       }
-    </div>
+    </>
   )
 }
 

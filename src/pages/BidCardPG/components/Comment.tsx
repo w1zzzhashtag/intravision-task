@@ -1,6 +1,6 @@
 import React from 'react'
 import { MONTHS } from '../../../featurers/commonVariables'
-import { parseDate } from '../../../featurers/users/commonFeaturers'
+import { parseDate } from '../../../featurers/commonFeaturers'
 import { BidsCardDataTypeLifetimeItems } from './../../../featurers/bidsCard/bidsCardTypes'
 import styles from './Comment.module.scss'
 

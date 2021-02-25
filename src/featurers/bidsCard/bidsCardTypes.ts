@@ -5,7 +5,8 @@ export type BidsCardType = {
   data: BidsCardDataType | null;
   isLoaded: boolean;
   error: Error | null;
-  putBidsCardIsComplete: boolean
+  putBidsCardIsComplete: boolean;
+  postBidsCardIsComplete: number | null
 }
 
 export interface BidsCardDataType extends BidsDataType {
@@ -23,8 +24,8 @@ export type BidsCardDataTypeLifetimeItems = {
   userName: string;
 }
 
-export type PutBidsCardDataType = {
-  id: number;
+export type SendBidsCardDataType = {
+  id?: number;
   name: string;
   description: string;
   comment: string;

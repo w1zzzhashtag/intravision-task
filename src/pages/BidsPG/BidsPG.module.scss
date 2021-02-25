@@ -24,6 +24,7 @@
     width: 100%; 
     height: 100%;
     overflow-y: scroll;
+    composes: withScroll from './../../app/global.module.scss';
   }
   &__row {
     display: flex;

@@ -1,12 +1,12 @@
 import React from 'react'
-import styles from './TextItem.module.scss'
+import styles from './CardTextItem.module.scss'
 
 interface IProps {
   title: string
   children: React.ReactNode
 }
 
-const TextItem: React.FC<IProps> = ({ title, children }) => {
+const CardTextItem: React.FC<IProps> = ({ title, children }) => {
   return (
     <div className={styles.wrapper}>
       <p className={styles.title}>{title}</p>
@@ -15,4 +15,4 @@ const TextItem: React.FC<IProps> = ({ title, children }) => {
   )
 }
 
-export default TextItem
+export default CardTextItem

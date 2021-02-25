@@ -1,0 +1,14 @@
+@import './../assets/styles/vars.scss';
+
+
+.withScroll {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $clr-grey;
+    border-radius: 4px;
+  }
+}

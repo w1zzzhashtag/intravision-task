@@ -1,6 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
-import { Link, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { BidsDataType } from '../../../featurers/commonTypes'
 
@@ -25,20 +25,18 @@ const TableListRow: React.FC<IProps> = ({ data }) => {
       </span>
 
 
-      <Route path="/bids" exact render={() => <>
-        <span className={cn(styles.item, styles.item__status)}>
-          <span
-            className={styles.item__status__text}
-            style={{ backgroundColor: data.statusRgb }}
-          >
-            {data.statusName}
-          </span>
+      <span className={cn(styles.item, styles.item__status)}>
+        <span
+          className={styles.item__status__text}
+          style={{ backgroundColor: data.statusRgb }}
+        >
+          {data.statusName}
         </span>
+      </span>
 
-        <span className={cn(styles.item, styles.item__executor)}>
-          {data.executorName}
-        </span>
-      </>} />
+      <span className={cn(styles.item, styles.item__executor)}>
+        {data.executorName}
+      </span>
     </Link>
   )
 }
